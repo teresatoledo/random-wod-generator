@@ -1,0 +1,33 @@
+$font-main: 'Roboto', sans-serif;
+$color-main: #227877;
+
+.landing {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient($color-main, white);
+	&__title {
+		font-family: $font-main;
+		font-size: 2rem;
+	}
+	&__description {
+		font-family: $font-main;
+		width: 45ch;
+		padding: 10px;
+		text-align: center;
+	}
+	&__button {
+		font-family: $font-main;
+		font-size: 1.4rem;
+		text-decoration: none;
+		text-align: center;
+		background-color: $color-main;
+		color: white;
+		border-radius: 20px;
+		border: 1px solid white;
+		width: 100px;
+		padding: 5px;
+	}
+}

@@ -1,0 +1,52 @@
+.form {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 20px;
+	padding-top: 30px;
+	width: 100%;
+	&__div {
+		display: flex;
+		flex-direction: column;
+	}
+	&__label {
+		font-size: 1.8rem;
+		font-weight: bold;
+		padding: 5px 10px;
+	}
+	&__button {
+		margin-top: 10px;
+		color: black;
+		border: 2px solid #227877;
+		border-radius: 0px;
+		padding: 5px 5px;
+		font-size: 1.2rem;
+		letter-spacing: 1px;
+		cursor: pointer;
+		box-shadow: inset 0 0 0 0 #227877;
+		-webkit-transition: ease-out 0.4s;
+		-moz-transition: ease-out 0.4s;
+		transition: ease-out 0.4s;
+	}
+	&__button:hover {
+		box-shadow: inset 0 0 0 50px #227877;
+	}
+}
+.result {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: 2px solid #227877;
+	padding: 5px 5px;
+	margin: 30px 350px;
+	&__title {
+		font-size: 1.8rem;
+	}
+	&__subtitle {
+		font-size: 1.5rem;
+	}
+}
+.hidden {
+	display: none;
+}
