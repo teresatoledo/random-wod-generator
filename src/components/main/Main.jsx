@@ -42,6 +42,15 @@ function Main({
 				exercise={exercise}
 				setExercise={setExercise}
 			/>
+			<div className="mainSection">
+				<Link
+					target="_blank"
+					to="/main/exercises"
+					className="main__guide"
+				>
+					<h3>Quick explanation for all exercises</h3>
+				</Link>
+			</div>
 		</>
 	);
 }

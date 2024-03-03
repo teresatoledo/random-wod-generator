@@ -2,6 +2,13 @@ $color-main: #227877;
 .header {
 	height: 15vh;
 	display: flex;
+	align-items: center;
 	justify-content: center;
+	width: 100%;
 	background-color: #227877;
+	@media (min-width: 768px) {
+	}
+}
+img {
+	height: 15vh;
 }

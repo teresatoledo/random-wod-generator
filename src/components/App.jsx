@@ -4,7 +4,8 @@ import Home from './Home';
 import Main from './main/Main';
 import Guide from './main/Guide';
 import { useState } from 'react';
-
+import Exercises from './main/Exercises';
+import 'react-tooltip/dist/react-tooltip.css';
 //import { Link, Route, Routes } from 'react-router-dom';
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
 					}
 				/>
 				<Route path="/main/guide" element={<Guide />} />
+				<Route path="/main/exercises" element={<Exercises />} />
 			</Routes>
 		</div>
 	);

@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from 'react';
 import '../../styles/main/Body.scss';
+import TooltipText from './Tooltip';
 function Body({
 	type,
 	setType,
@@ -27,11 +28,14 @@ function Body({
 	};
 	const handleType = (event) => {
 		setType(event.target.value);
+		setResultBox('hidden');
 	};
 	const handleFocus = (event) => {
 		setFocus(event.target.value);
+		setResultBox('hidden');
 	};
 	const handleTime = (event) => {
+		setResultBox('hidden');
 		const timeSelect = event.target.value;
 		setTime(timeSelect);
 		const selectedTime = parseInt(timeSelect);
@@ -97,6 +101,7 @@ function Body({
 		});
 
 		// Agregar ejercicios de los otros focos
+		//object.keys me devuelve un array con las claves del objeto exercise, filtro por esas claves para que no sean iguales a focus
 		const otherFoci = Object.keys(exercises).filter((key) => key !== focus);
 		otherFoci.forEach((otherFocus) => {
 			const otherExercises = exercises[otherFocus];
@@ -111,29 +116,35 @@ function Body({
 		);
 
 		// Limitar el número de ejercicios a mostrar
-		let finalExercises = selectedExercises.slice(0, 3).map((exercise) => {
-			const repetitions = Math.floor(Math.random() * (10 - 3 + 1)) + 5; // Generar un número aleatorio entre 5 y 10 para las repeticiones
-			return { exercise, repetitions }; // Devolver el ejercicio junto con el número de repeticiones
-		});
+		let finalExercises = selectedExercises
+			.slice(0, Math.floor(Math.random() * (10 - 3 + 1)) + 3)
+			.map((exercise) => {
+				const repetitions =
+					Math.floor(Math.random() * (10 - 5 + 1)) + 5; // Generar un número aleatorio entre 5 y 10 para las repeticiones
+				return { exercise, repetitions }; // Devolver el ejercicio junto con el número de repeticiones
+			});
 
 		// Ajustar ejercicios según el tipo de WOD
 		if (type === 'EMOM' && time > 0) {
 			const totalExercises = finalExercises.length;
-			console.log(totalExercises);
-			console.log(time);
-			const exercisesPerMinute = Math.ceil(totalExercises / time);
-			finalExercises = finalExercises.map((exercise, index) => ({
-				...exercise,
-				repetitions: exercisesPerMinute,
-				minute: (index % time) + 1,
-			}));
+			// const exercisesPerMinute = Math.ceil(totalExercises / time);
+			finalExercises = finalExercises.map((exercise, index) => {
+				// Genera un número aleatorio de repeticiones entre 5 y 10
+				const repetitions =
+					Math.floor(Math.random() * (10 - 5 + 1)) + 5;
+				return {
+					...exercise,
+					repetitions: repetitions,
+					minute: (index % time) + 1,
+				};
+			});
 		} else if (type === 'For time') {
 			finalExercises.forEach((exercise) => {
-				exercise.repetitions = Math.min(exercise.repetitions, 20);
+				exercise.repetitions = Math.floor(Math.random() * 20) + 1;
 			});
 		} else if (type === 'For quality') {
 			finalExercises.forEach((exercise) => {
-				exercise.repetitions = Math.min(exercise.repetitions, 5);
+				exercise.repetitions = Math.floor(Math.random() * 5) + 1;
 			});
 		}
 
@@ -205,26 +216,40 @@ function Body({
 			<div className={`result result__subtitle ${error}`}>
 				Please, make sure everything is well selected.
 			</div>
-			<div className={`result ${resultBox}`}>
-				<h4 className="result__title">Today's WOD:</h4>
-				<h5 className="result__subtitle">
-					{type} {number} minutes
-				</h5>
-				<h5 className="result__subtitle">
-					Main focus will be: {focus}
-				</h5>
-				<h5 className="result__subtitle">
-					<ul>
-						{exercise.map((item, index) => (
-							<li key={index}>
-								{type === 'EMOM'
-									? `Minute ${item.minute}: ${item.repetitions} ${item.exercise}`
-									: `${item.repetitions} ${item.exercise}`}
-							</li>
-						))}
-					</ul>
-				</h5>
-			</div>
+			<article className="article">
+				<div className={`result ${resultBox}`}>
+					<h4 className="result__title">Today's WOD:</h4>
+					<h5 className="result__subtitle">
+						{type} {number} minutes
+					</h5>
+					<h5 className="result__subtitle">
+						Main focus will be: {focus}
+					</h5>
+					<h5 className="result__subtitle">
+						<ul>
+							{exercise.map((item, index) => (
+								<li key={index}>
+									{type === 'EMOM'
+										? `Minute ${item.minute}: ${item.repetitions} ${item.exercise}`
+										: `${item.repetitions} ${item.exercise}`}
+								</li>
+							))}
+						</ul>
+					</h5>
+				</div>
+			</article>
+			{/* <div className="animation">
+				<img
+					className="animation__img"
+					src="src/images/kettle.png"
+					alt="Kettlebell"
+				/>
+				<img
+					className="animation__img2"
+					src="src/images/dumbell.png"
+					alt="Dumbell"
+				/>
+			</div> */}
 		</>
 	);
 }
