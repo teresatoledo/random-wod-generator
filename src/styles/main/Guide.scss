@@ -27,8 +27,11 @@
 		font-size: 2rem;
 	}
 	&__text {
-		width: 70ch;
+		width: 20ch;
 		font-size: 1.8rem;
+		@media (min-width: 768px) {
+			width: 70ch;
+		}
 		&--title {
 			font-weight: bold;
 		}
